@@ -3,7 +3,8 @@ const Post = require("../models/Post");
 
 exports.getAllPosts = async (req, res) => {
   try {
-    const posts = await Post.find();
+    const posts = await Post.find().populate('user');
+
     res.json(posts);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
@@ -13,7 +14,7 @@ exports.getAllPosts = async (req, res) => {
 exports.getPost = async (req, res) => {
   try {
     const postId = req.params.id;
-    const post = await Post.findById(postId);
+    const post = await Post.findById(postId).populate('user');
     if (!post) {
       return res.status(404).json({ error: "Post not found" });
     }
@@ -24,15 +25,18 @@ exports.getPost = async (req, res) => {
 };
 
 exports.createPost = async (req, res) => {
-  try {
-    const { title, content } = req.body;
-    const newPost = new Post({ title, content });
-    const savedPost = await newPost.save();
-    res.json(savedPost);
-  } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-};
+    try {
+      const { title, content, userId } = req.body;
+      
+      const newPost = new Post({ title, content, user: userId });
+  
+      const savedPost = await newPost.save();
+      res.json(savedPost);
+    } catch (error) {
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+  
 
 exports.updatePost = async (req, res) => {
   try {
@@ -46,7 +50,7 @@ exports.updatePost = async (req, res) => {
         content,
       },
       { new: true }
-    );
+    ).populate('user');
 
     if (!updatedPost) {
       return res.status(404).json({ error: "Post not found" });
@@ -61,7 +65,7 @@ exports.updatePost = async (req, res) => {
 exports.deletePost = async (req, res) => {
   try {
     const postId = req.params.id;
-    const deletedPost = await Post.findByIdAndDelete(postId);
+    const deletedPost = await Post.findByIdAndDelete(postId).populate('user');
 
     if (!deletedPost) {
       return res.status(404).json({ error: "Post not found" });
