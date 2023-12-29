@@ -1,17 +1,3 @@
-Certainly! Here's a basic `README.md` file for your Mongoose Express app boilerplate:
-
-```markdown
-# Mongoose Express Boilerplate
-
-A basic boilerplate for creating a backend server using Mongoose and Express.
-
-## Prerequisites
-
-Before getting started, make sure you have the following installed on your machine:
-
-- [Node.js](https://nodejs.org/)
-- [npm](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/) (recommended)
-
 ## Getting Started
 
 1. Clone this repository:
@@ -69,12 +55,3 @@ Before getting started, make sure you have the following installed on your machi
 - User and Post model examples.
 - CORS enabled for cross-origin requests.
 - Nodemon for automatic server restart during development.
-
-## Contributing
-
-Feel free to contribute to the project. You can open issues for bugs or feature requests and submit pull requests.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
